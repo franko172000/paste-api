@@ -2,12 +2,16 @@ import Container from 'typedi';
 import { Connection } from 'typeorm';
 import { tearDownDatabase, useRefreshDatabase } from 'typeorm-seeding';
 import dbconnection from '../../../loaders/dbconnection';
-import { userData } from '../../../mocks';
 import { Users } from '../entities/users.entity';
 import UserService from '../user.service';
 
 let connection: Connection;
 let userService: UserService;
+const userData = {
+  email: 'test@email.com',
+  password: 'test',
+  name: 'John Doe',
+}
 describe('Testing Auth service class', () => {
   beforeAll(async () => {
     await dbconnection();
@@ -33,7 +37,6 @@ describe('Testing Auth service class', () => {
     expect(user.email).toEqual(userData.email);
     expect(user.name).toEqual(userData.name);
     expect(user.password).toEqual(userData.password);
-    expect(user.age).toEqual(userData.age);
   });
 
   it('Test user can login', async () => {

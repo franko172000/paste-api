@@ -1,7 +1,7 @@
 import { NotFoundError, UnauthorizedError } from 'routing-controllers';
 import { Service } from 'typedi';
 import { BaseService } from '../../services/base.service';
-import { UserRegisterDTO, UserLoginDTO} from './dto/auth.dto';
+import { UserRegisterDTO, UserLoginDTO } from './dto/auth.dto';
 import { UsersRepository } from './repositories/users.repository';
 import config from '../../config';
 import { sign } from 'jsonwebtoken';
@@ -9,9 +9,7 @@ import { InjectRepository } from 'typeorm-typedi-extensions';
 
 @Service()
 export default class UserService extends BaseService {
-  constructor(
-    @InjectRepository(UsersRepository) private readonly userRepo: UsersRepository
-  ) {
+  constructor(@InjectRepository(UsersRepository) private readonly userRepo: UsersRepository) {
     super();
   }
 
@@ -34,7 +32,6 @@ export default class UserService extends BaseService {
     }
 
     throw new UnauthorizedError('Invalid credentials');
-    
   }
 
   /**
@@ -44,10 +41,10 @@ export default class UserService extends BaseService {
    */
   async registerUser(user: UserRegisterDTO) {
     //destruct user object
-    const { name, email, age, password } = user;
+    const { name, email, password } = user;
     //create user record
-    await this.userRepo.createUser({ name, email, password, age });
-    
+    await this.userRepo.createUser({ name, email, password });
+
     return this.okResponse('User created!');
   }
 
