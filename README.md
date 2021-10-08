@@ -44,6 +44,10 @@ Run the command bellow
 
 * Authentication - Bearer `token`
 
+### Tests
+```bash
+ npm run test
+```
 
 ### Author
 Anyaso Franklin <br />
