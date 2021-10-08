@@ -1,7 +1,7 @@
 import { Service } from 'typedi';
 import { EntityRepository, Repository } from 'typeorm';
 import { Pastes } from '../entity/paste.entity';
-import { IPaste } from '../interfaces/paste.interface';
+import { PasteDTO } from '../dto/paste.dto';
 
 @Service()
 @EntityRepository(Pastes)
@@ -11,8 +11,15 @@ export class PasteRepository extends Repository<Pastes> {
    * @param data paste data
    * @returns Promise<Pastes>
    */
-  async createPaste(data: IPaste): Promise<Pastes> {
-    return this.save(data);
+  async createPaste(data: PasteDTO, userId: number): Promise<Pastes> {
+    const { name, content } = data;
+    return this.save(
+      this.create({
+        name,
+        content,
+        userId,
+      }),
+    );
   }
 
   /**

@@ -1,9 +1,9 @@
 import { Service } from 'typedi';
 import { InjectRepository } from 'typeorm-typedi-extensions';
 import { PasteRepository } from './repositories/pastes.repository';
-import { IPaste } from './interfaces/paste.interface';
 import { BaseService } from '../../services/base.service';
 import config from '../../config';
+import { PasteDTO } from './dto/paste.dto';
 
 @Service()
 export default class PasteService extends BaseService {
@@ -11,9 +11,10 @@ export default class PasteService extends BaseService {
     super();
   }
 
-  async addPaste(data: IPaste) {
-    const paste = await this.pasteRepo.createPaste(data);
-    return this.okResponse('Content successfully', { url: config.baseUrl + '/' + paste });
+  async addPaste(data: PasteDTO, userId: number) {
+    const paste = await this.pasteRepo.createPaste(data, userId);
+    const url = config.baseUrl + config.api.prefix + 'paste/' + paste.code;
+    return this.okResponse('Content successfully created!', { url });
   }
 
   async getPaste(code: string) {

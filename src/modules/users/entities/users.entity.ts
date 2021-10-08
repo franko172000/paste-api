@@ -1,5 +1,4 @@
 import { Exclude } from 'class-transformer';
-import * as bcrypt from 'bcrypt';
 import {
   Entity,
   Column,
@@ -25,9 +24,6 @@ export class Users extends BaseEntity {
   @Exclude()
   @Column({ nullable: false })
   password: string;
-
-  @Column()
-  age: number;
 
   @CreateDateColumn({ name: 'created_at', select: false })
   createdAt: Date;
