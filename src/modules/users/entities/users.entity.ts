@@ -7,8 +7,9 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   BaseEntity,
-  BeforeInsert,
+  ManyToOne,
 } from 'typeorm';
+import { Pastes } from '../../paste/entity/paste.entity';
 
 @Entity()
 export class Users extends BaseEntity {
@@ -34,4 +35,6 @@ export class Users extends BaseEntity {
   @UpdateDateColumn({ name: 'updated_at', select: false })
   updatedAt: Date;
 
+  @ManyToOne(type => Pastes, pastes => pastes.user)
+  pastes: Pastes[];
 }

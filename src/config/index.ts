@@ -26,13 +26,17 @@ if (envFound.error) {
   throw new Error("⚠️  Couldn't find .env file  ⚠️");
 }
 
+const port = parseInt(process.env.PORT || '3000', 10);
+const testPort = parseInt(process.env.TEST_PORT || '4000', 10);
+const baseUrl = process.env.BASE_URL + ':' + port;
+
 export default {
   environment: environment ? environment.trim() : '',
   /**
    * Your favorite port
    */
-  port: parseInt(process.env.PORT || '3000', 10),
-  testPort: parseInt(process.env.TEST_PORT || '4000', 10),
+  port,
+  testPort,
 
   /**
    * Your secret sauce
@@ -53,10 +57,11 @@ export default {
     prefix: '/api/v1/',
   },
 
-  acceptedDistances:[1,10],
-  prizeValueRange:{
+  baseUrl,
+  acceptedDistances: [1, 10],
+  prizeValueRange: {
     min: 10,
-    max: 30
+    max: 30,
   },
 
   /**
